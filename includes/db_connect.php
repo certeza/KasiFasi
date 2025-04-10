@@ -2,7 +2,7 @@
 // error_reporting(E_ALL);
 // ini_set('display_errors', '1');
 
-define('APP_TITLE', "PlantEcho - The Voice of Suriname's Rainforest");
+define('APP_TITLE', "KasiFasi - The Voice of Suriname's Rainforest");
 
 // --- Database Configuration ---
 // IMPORTANT: Use environment variables or a config file outside the web root in production!
