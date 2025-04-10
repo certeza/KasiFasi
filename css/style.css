@@ -1,0 +1,732 @@
+/* --- Rainforest Theme --- */
+
+/* --- Variables --- */
+:root {
+    --primary-green: #2f4f2f; /* Dark Green */
+    --secondary-green: #556b2f; /* Olive Drab */
+    --accent-green: #8fbc8f; /* Dark Sea Green */
+    --brown: #8b4513; /* Saddle Brown */
+    --light-brown: #deb887; /* Burlywood */
+    --text-color: #f5f5f5;
+    --text-on-light: #333;
+    --link-color: #90ee90;
+    --link-hover: #3cb371;
+    --border-color: rgba(245, 245, 245, 0.2);
+    --card-bg: rgba(47, 79, 47, 0.8);
+    --form-bg: rgba(222, 184, 135, 0.85);
+    --highlight-bg: yellow;
+    --highlight-text: black;
+
+    --font-primary: 'Lato', sans-serif;
+    --font-secondary: 'Merriweather', serif;
+
+    --header-height: 70px; /* Define header height */
+}
+
+/* --- Medewerkers Pagina - Groepering & Inklapbaar --- */
+.medewerkers-container h1 { /* Gebruik H1 voor hoofdtitel */
+    color: var(--accent-green);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.role-groups-container {
+    margin-top: 20px;
+}
+
+.role-group {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 20px;
+    background-color: rgba(0, 0, 0, 0.2); /* Lichte achtergrond voor de groep */
+    overflow: hidden; /* Voorkomt rare randen bij animatie */
+}
+
+.role-summary {
+    padding: 15px 20px;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.3); /* Iets donkerder voor de header */
+    display: flex; /* Gebruik flex voor uitlijnen */
+    justify-content: space-between; /* Titel links, indicator rechts */
+    align-items: center;
+    transition: background-color 0.2s ease;
+    /* Verwijder standaard browser pijl/marker */
+    list-style: none; /* Werkt niet altijd, zie ::-webkit-details-marker */
+}
+/* Verwijder standaard pijl in Webkit browsers */
+.role-summary::-webkit-details-marker {
+    display: none;
+}
+/* Verwijder standaard pijl in Firefox */
+.role-summary::marker {
+    display: none; /* Werkt mogelijk niet, Firefox gebruikt pseudo-element */
+}
+/* Firefox - alternatieve manier om pijl te verbergen */
+details > summary:first-of-type {
+  list-style-type: none;
+}
+
+
+.role-summary:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.role-summary h2 {
+    margin: 0; /* Verwijder H2 marge */
+    color: var(--accent-green);
+    font-size: 1.5em; /* Iets groter voor groepstitel */
+}
+
+/* Aangepaste indicator (optioneel) */
+.group-toggle-indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-right: 3px solid var(--text-color);
+    border-bottom: 3px solid var(--text-color);
+    transform: rotate(45deg); /* Pijl naar beneden (open) */
+    transition: transform 0.3s ease;
+    margin-left: 15px;
+}
+
+/* Stijl indicator wanneer gesloten */
+details:not([open]) .role-summary .group-toggle-indicator {
+    transform: rotate(-45deg); /* Pijl naar rechts (gesloten) */
+}
+
+/* De lijst met kaarten binnen de details */
+.role-group .medewerker-list {
+    padding: 20px;
+    /* Houd grid layout, maar mogelijk met andere marges/padding dan .plant-grid */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Iets kleinere kaarten misschien */
+    gap: 20px;
+    border-top: 1px solid var(--border-color); /* Lijn tussen summary en content */
+    margin-top: 0; /* Verwijder eventuele top marge van de lijst */
+}
+
+/* Zorg dat de medewerker kaartjes binnen de groep de juiste styling hebben */
+.role-group .medewerker-card {
+    /* Eventuele aanpassingen specifiek voor binnen een groep */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Iets minder schaduw misschien */
+}
+
+.role-group .medewerker-foto {
+    height: 160px; /* Iets kleiner foto gebied */
+}
+
+.role-group .medewerker-info {
+    padding: 10px 15px; /* Iets minder padding */
+}
+.role-group .medewerker-info h3 {
+     font-size: 1.1em;
+}
+.role-group .medewerker-actions {
+    text-align: right; /* Acties rechts uitlijnen */
+}
+.role-group .medewerker-actions a {
+    font-size: 0.85em;
+    padding: 3px 8px;
+    margin-left: 5px;
+    display: inline-block; /* Zorg dat padding werkt */
+}
+
+/* --- Responsive aanpassing voor medewerkers lijst binnen groep --- */
+@media (max-width: 768px) {
+    .role-group .medewerker-list {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 15px;
+        padding: 15px;
+    }
+    .role-summary h2 { font-size: 1.3em; }
+}
+
+@media (max-width: 480px) {
+    .role-group .medewerker-list {
+        grid-template-columns: 1fr; /* Enkele kolom op kleinste schermen */
+    }
+     .role-summary h2 { font-size: 1.2em; }
+}
+
+/* --- Pagina Inhoud Container (bv. inleiding.php) --- */
+.page-content-container {
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5); /* Consistent met andere detail paginas */
+    border-radius: 8px;
+}
+
+.page-content-container h2 {
+    color: var(--accent-green);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* Styling voor de content die uit de WYSIWYG editor komt */
+.wysiwyg-content {
+    color: var(--text-color); /* Zorg dat tekst leesbaar is */
+    line-height: 1.7;
+}
+
+.wysiwyg-content p {
+    margin-bottom: 1em;
+}
+
+.wysiwyg-content img {
+    max-width: 100%; /* Maak afbeeldingen responsive */
+    height: auto;
+    margin: 15px 0; /* Wat ruimte rond afbeeldingen */
+    border-radius: 4px; /* Optioneel: afgeronde hoeken */
+    display: block; /* Voorkom extra ruimte onder afbeelding */
+    margin-left: auto; /* Optioneel: centreer afbeeldingen */
+    margin-right: auto;
+}
+
+/* Styling voor links binnen de content */
+.wysiwyg-content a {
+    color: var(--link-color);
+    text-decoration: underline;
+}
+.wysiwyg-content a:hover {
+    color: var(--link-hover);
+}
+
+/* Styling voor lijsten binnen de content */
+.wysiwyg-content ul,
+.wysiwyg-content ol {
+    margin-left: 25px;
+    margin-bottom: 1em;
+}
+.wysiwyg-content li {
+    margin-bottom: 0.5em;
+}
+
+/* Styling voor headings binnen de content */
+.wysiwyg-content h3,
+.wysiwyg-content h4,
+.wysiwyg-content h5 {
+    color: var(--accent-green);
+    margin-top: 1.5em;
+    margin-bottom: 0.6em;
+}
+
+/* --- Edit Pagina Formulier --- */
+.edit-page-form {
+     max-width: 900px; /* Breder formulier voor editor */
+     margin: 30px auto;
+     padding: 25px;
+     background-color: var(--form-bg);
+     border-radius: 8px;
+     color: var(--text-on-light);
+     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.edit-page-form h2 {
+    text-align: center;
+    color: var(--primary-green);
+    margin-bottom: 25px;
+    margin-top: 0;
+}
+.edit-page-form .form-group {
+    margin-bottom: 20px;
+}
+.edit-page-form label {
+     margin-bottom: 8px;
+     font-weight: bold;
+     color: var(--primary-green);
+     display: block;
+}
+.edit-page-form input[type="text"] {
+     padding: 10px;
+     border: 1px solid var(--secondary-green);
+     border-radius: 4px;
+     background-color: #fff;
+     font-family: var(--font-primary);
+     font-size: 1em;
+     width: 100%;
+     color: var(--text-on-light);
+}
+
+/* TinyMCE styling - de editor zelf brengt meestal zijn eigen basis CSS mee */
+.tox-tinymce {
+    border: 1px solid var(--secondary-green) !important; /* Override default border */
+    border-radius: 4px;
+}
+
+.edit-page-form .form-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end; /* Knoppen rechts */
+    align-items: center;
+    gap: 15px;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    padding-top: 20px;
+}
+
+/* --- General Styles --- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: var(--font-primary);
+    margin: 0;
+    padding: 0;
+    background-color: var(--primary-green);
+    background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('../images/rainforest_bg.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    color: var(--text-color);
+    line-height: 1.6;
+    padding-top: var(--header-height); /* Prevent content from going under fixed header */
+}
+
+/* Prevent body scroll when menu is open */
+body.no-scroll {
+    overflow: hidden;
+    /* Optional: Add padding to compensate for scrollbar width if needed */
+    /* padding-right: 15px; */
+}
+
+main {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 8px;
+    min-height: calc(100vh - var(--header-height) - 120px); /* Adjust based on header/footer height */
+}
+
+
+a { color: var(--link-color); text-decoration: none; transition: color 0.3s ease; }
+a:hover { color: var(--link-hover); text-decoration: underline; }
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-secondary); color: var(--accent-green); margin: 0 0 0.8em 0; }
+h1 { font-size: 2.2em; }
+h2 { font-size: 1.8em; }
+h3 { font-size: 1.4em; }
+
+hr { border: 0; height: 1px; background-color: var(--border-color); margin: 1.5em 0; }
+
+button, input[type="submit"], .btn-submit, .btn-add, .btn-cancel { /* Consistent button styles */
+    background-color: var(--secondary-green);
+    color: var(--text-color);
+    border: 1px solid var(--accent-green);
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: var(--font-primary); /* Ensure font consistency */
+    font-size: 1em;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    text-decoration: none; /* For link buttons */
+    display: inline-block; /* For link buttons */
+    text-align: center;
+    line-height: 1.4; /* Vertical alignment */
+}
+button:hover, input[type="submit"]:hover, .btn-submit:hover, .btn-add:hover, .btn-cancel:hover {
+    background-color: var(--accent-green);
+    color: var(--primary-green);
+    text-decoration: none;
+}
+button:active, input[type="submit"]:active, .btn-submit:active, .btn-add:active, .btn-cancel:active {
+    transform: scale(0.98);
+}
+.btn-cancel {
+    background-color: var(--brown);
+    border-color: var(--light-brown);
+}
+.btn-cancel:hover {
+     background-color: var(--light-brown);
+     border-color: var(--brown);
+     color: var(--brown);
+}
+/* Focus styles for accessibility */
+button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+    outline: 2px solid var(--link-color);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px rgba(144, 238, 144, 0.3); /* Optional softer glow */
+}
+
+/* --- Header & Navigation --- */
+header {
+    background-color: rgba(47, 79, 47, 0.9);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    position: fixed; /* Fixed header */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--header-height);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+}
+
+.main-nav {
+    max-width: 1300px; /* Slightly wider for spacing */
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.logo {
+    font-family: var(--font-secondary);
+    font-size: 1.2em; /* Adjust size */
+    font-weight: bold;
+    color: var(--text-color);
+    text-decoration: none;
+    white-space: nowrap; /* Prevent wrapping */
+    margin-right: 15px; /* Space between logo and controls */
+}
+.logo:hover {
+    color: var(--accent-green);
+    text-decoration: none;
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Space between search and hamburger */
+}
+
+/* --- Search Form (Header) --- */
+.search-form { display: flex; }
+.search-form input[type="search"] {
+    padding: 8px 12px;
+    border-radius: 15px 0 0 15px;
+    border: 1px solid var(--border-color);
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+    margin-right: -1px; /* Overlap border with button */
+    min-width: 150px; /* Prevent it getting too small */
+    height: 38px; /* Match button height */
+    font-size: 0.9em;
+}
+.search-form input[type="search"]::placeholder { color: rgba(245, 245, 245, 0.7); }
+.search-form input[type="search"]:focus {
+     /* Use focus-visible for better accessibility */
+}
+.search-form button {
+    padding: 8px 15px;
+    border-radius: 0 15px 15px 0;
+    margin-left: 0;
+    background-color: var(--secondary-green);
+    border: 1px solid var(--accent-green);
+    height: 38px; /* Match input height */
+    font-size: 0.9em;
+}
+.search-form button:hover { background-color: var(--accent-green); color: var(--primary-green); }
+
+/* --- Hamburger Menu --- */
+.hamburger-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px; /* Smaller padding */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px; /* Fixed width */
+    height: 30px; /* Fixed height, slightly larger */
+    z-index: 1002; /* Above menu background */
+    margin-left: 10px; /* Space from search */
+    border-radius: 3px;
+}
+.hamburger-toggle span {
+    display: block;
+    width: 100%;
+    height: 3px; /* Line thickness */
+    background-color: var(--text-color);
+    border-radius: 3px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+/* Animation for hamburger icon lines -> X */
+.hamburger-toggle[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+.hamburger-toggle[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+}
+.hamburger-toggle[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+.hamburger-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 280px; /* Menu width */
+    max-width: 80%;
+    height: 100vh;
+    background-color: rgba(47, 79, 47, 0.98); /* Slightly more opaque */
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    transform: translateX(100%); /* Off-screen */
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth transition */
+    z-index: 1001; /* Below toggle button, above content */
+    padding-top: calc(var(--header-height) + 10px); /* Space for header + padding */
+    padding-bottom: 20px;
+    overflow-y: auto; /* Allow scrolling if content is long */
+    visibility: hidden; /* Hide when off-screen for accessibility */
+}
+.hamburger-menu.menu-open {
+    transform: translateX(0); /* Slide in */
+    visibility: visible;
+}
+
+.menu-links {
+    list-style: none;
+    padding: 0 20px; /* Padding left/right */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Space between items */
+}
+.menu-links li { padding: 0; }
+.menu-links a {
+    display: block; /* Make links full width */
+    padding: 12px 15px;
+    color: var(--text-color);
+    font-weight: bold;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+.menu-links a:hover, .menu-links a:focus {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--link-color);
+    text-decoration: none;
+    outline: none; /* Remove default focus, rely on :focus-visible */
+}
+.menu-links hr {
+    margin: 10px 0;
+    border-color: rgba(245, 245, 245, 0.1);
+}
+.menu-links .welcome-user {
+    padding: 12px 15px;
+    color: var(--light-brown);
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+/* --- Highlighting --- */
+.highlight {
+    background-color: var(--highlight-bg);
+    color: var(--highlight-text);
+    padding: 0 2px;
+    border-radius: 2px;
+    font-weight: bold;
+}
+
+/* --- Flash Messages --- */
+.flash-messages {
+    max-width: 1200px;
+    margin: -10px auto 15px auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 900;
+}
+.flash { padding: 15px; margin-bottom: 10px; border-radius: 5px; color: #fff; opacity: 1; }
+.flash.success { background-color: #5cb85c; border: 1px solid #4cae4c; }
+.flash.error { background-color: #d9534f; border: 1px solid #d43f3a; }
+.flash.warning { background-color: #f0ad4e; border: 1px solid #eea236; color: #333; }
+.flash.info { background-color: #5bc0de; border: 1px solid #46b8da; }
+
+
+/* --- Plant Grid (Index Page) --- */
+.plant-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; margin-top: 20px; }
+.plant-card { background-color: var(--card-bg); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; }
+.plant-card:hover { transform: translateY(-5px); box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); }
+.plant-card a { color: var(--text-color); text-decoration: none; display: flex; flex-direction: column; height: 100%; }
+.plant-card a:focus-visible { outline-offset: -2px; box-shadow: none; /* Adjust focus inside card */}
+.plant-card img, .placeholder-image { width: 100%; height: 180px; object-fit: cover; background-color: var(--secondary-green); display: flex; align-items: center; justify-content: center; color: rgba(245, 245, 245, 0.7); font-style: italic; }
+.plant-card h3, .plant-card p { margin: 0; padding: 10px 15px; }
+.plant-card h3 { font-size: 1.1em; color: var(--accent-green); flex-grow: 1; word-wrap: break-word; }
+.plant-card p { font-size: 0.9em; font-style: italic; color: var(--light-brown); padding-top: 0; word-wrap: break-word; }
+
+/* --- Detail Pages (Plant, Medewerker etc.) --- */
+.plant-detail-container, .medewerkers-container, .auth-container /* Added for login/register */ {
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+}
+.back-link { /* Style for << Back links */
+    display: inline-block;
+    margin-bottom: 20px;
+    background-color: var(--secondary-green);
+    padding: 5px 10px;
+    border-radius: 4px;
+    color: var(--text-color);
+    font-size: 0.9em;
+}
+.back-link:hover {
+    background-color: var(--accent-green);
+    color: var(--primary-green);
+    text-decoration: none;
+}
+.plant-images { display: flex; flex-wrap: wrap; gap: 15px; margin: 20px 0; justify-content: center; }
+.image-container { flex: 1 1 30%; max-width: 300px; min-width: 150px; text-align: center; }
+.plant-images img { max-width: 100%; height: auto; border-radius: 5px; border: 2px solid var(--light-brown); }
+.illustration-credit { font-size: 0.8em; color: var(--light-brown); margin-top: 5px; font-style: italic; }
+.plant-info h3, .plant-info h4 /* Adjust heading levels */ {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 5px;
+    margin-top: 1.5em;
+    color: var(--accent-green);
+}
+.plant-info ul { list-style: none; padding-left: 0; }
+.plant-info ul li { margin-bottom: 0.5em; }
+.plant-info ul li strong { color: var(--light-brown); min-width: 120px; display: inline-block; margin-right: 5px;}
+.plant-info p { margin-bottom: 1em; word-wrap: break-word; }
+.plant-info strong { color: var(--light-brown); }
+.plant-actions { margin-top: 25px; } /* Space before edit button */
+
+
+/* --- Forms (Add/Edit Plant, Add Medewerker, Auth) --- */
+.add-plant-form, .edit-plant-form, .add-medewerker-form, .auth-form {
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 25px;
+    background-color: var(--form-bg);
+    border-radius: 8px;
+    color: var(--text-on-light);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.auth-form { max-width: 450px; }
+.add-plant-form h2, .edit-plant-form h2, .add-medewerker-form h2, .auth-form h2 { text-align: center; color: var(--primary-green); margin-bottom: 25px; margin-top: 0; }
+.form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px 25px; }
+.form-group { display: flex; flex-direction: column; margin-bottom: 10px; }
+.form-group.full-width { grid-column: 1 / -1; }
+.add-plant-form label, .edit-plant-form label, .add-medewerker-form label, .auth-form label { margin-bottom: 5px; font-weight: bold; color: var(--primary-green); font-size: 0.9em; display: block; /* Ensure label is block */ }
+.add-plant-form label .required, .edit-plant-form label .required, .add-medewerker-form label .required { color: #d9534f; font-weight: bold; margin-left: 3px; }
+.add-plant-form input[type="text"], .edit-plant-form input[type="text"], .add-medewerker-form input[type="text"], .auth-form input[type="text"],
+.add-plant-form input[type="password"], .edit-plant-form input[type="password"], .add-medewerker-form input[type="password"], .auth-form input[type="password"],
+.add-plant-form input[type="file"], .edit-plant-form input[type="file"], .add-medewerker-form input[type="file"],
+.add-plant-form textarea, .edit-plant-form textarea, .add-medewerker-form textarea {
+    padding: 10px; border: 1px solid var(--secondary-green); border-radius: 4px; background-color: #fff; font-family: var(--font-primary); font-size: 1em; width: 100%; color: var(--text-on-light);
+}
+.add-plant-form textarea, .edit-plant-form textarea, .add-medewerker-form textarea { resize: vertical; min-height: 100px; }
+.add-plant-form input[type="file"], .edit-plant-form input[type="file"], .add-medewerker-form input[type="file"] { padding: 5px; background-color: transparent; border: none; color: var(--text-on-light); } /* File input text color */
+.add-plant-form input[type="file"]::file-selector-button, .edit-plant-form input[type="file"]::file-selector-button, .add-medewerker-form input[type="file"]::file-selector-button {
+    background-color: var(--secondary-green); color: var(--text-color); border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; transition: background-color 0.3s ease; margin-right: 10px; font-size: 0.9em;
+}
+.add-plant-form input[type="file"]::file-selector-button:hover, .edit-plant-form input[type="file"]::file-selector-button:hover, .add-medewerker-form input[type="file"]::file-selector-button:hover { background-color: var(--accent-green); color: var(--primary-green); }
+.form-group small { font-size: 0.8em; color: #666; margin-top: 3px; }
+.form-actions { grid-column: 1 / -1; margin-top: 20px; display: flex; justify-content: space-between; align-items: center; gap: 15px; flex-wrap: wrap; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 20px; }
+.form-actions p { margin: 0; font-size: 0.9em; color: #555; text-align: left; flex-grow: 1; /* Allow text to take space */ }
+.form-actions button, .form-actions a { margin-left: 10px; /* Space between buttons if they wrap */ }
+.auth-form .form-actions { border-top: none; } /* No top border on auth form actions */
+
+/* Specific form group adjustments */
+.image-upload { border: 1px dashed var(--secondary-green); padding: 15px; border-radius: 5px; background-color: rgba(255, 255, 255, 0.1); }
+.current-image { margin-bottom: 10px; }
+.current-image img { max-width: 100px; max-height: 100px; border: 1px solid var(--light-brown); margin-right: 10px; vertical-align: middle; }
+.current-image small { font-size: 0.8em; color: var(--text-on-light); word-break: break-all; }
+
+/* Audio Recording Section */
+.audio-recording-section { margin-top: 15px; padding: 15px; border: 1px dashed var(--secondary-green); border-radius: 5px; background-color: rgba(255, 255, 255, 0.1); }
+.audio-recording-section label { display: block; margin-bottom: 10px; font-weight: bold; color: var(--primary-green); }
+.btn-record { background-color: #d9534f; color: white; border: 1px solid #d43f3a; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 0.9em; transition: background-color 0.3s ease, transform 0.1s ease; }
+.btn-record:hover { background-color: #c9302c; }
+.btn-record.recording { background-color: #5cb85c; border: 1px solid #4cae4c; }
+.btn-record.recording:hover { background-color: #449d44; }
+#recordingStatus { margin-left: 10px; font-style: italic; color: var(--text-on-light); }
+#audioPlayback { max-width: 100%; margin-top: 5px; }
+#audioError { margin-top: 10px; /* Uses .flash.error styles */ }
+
+
+/* --- Medewerkers Pagina --- */
+.action-buttons { margin-bottom: 20px; text-align: right; }
+.medewerker-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 25px; margin-top: 20px; }
+.medewerker-card {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    overflow: hidden;
+    width: 200px; /* toegevoegd */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    display: flex; /* Gebruik flexbox voor layout binnen de kaart */
+    flex-direction: column; /* Stapel foto en info */
+    color: var(--text-color);
+}
+
+.medewerker-foto {
+    width: 100%;
+    height: 100px; /* Vaste hoogte voor foto gebied */
+    background-color: var(--secondary-green); /* Achtergrond voor als er geen foto is */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Zorg dat foto niet buiten kader valt */
+}
+
+.medewerker-foto img {
+    /* width: 84px; */
+    height: 100%;
+    object-fit: cover; /* Zorgt dat foto mooi vult, eventueel bijgesneden */
+}
+
+.placeholder-foto {
+    font-size: 5em;
+    color: rgba(245, 245, 245, 0.5);
+}
+
+.medewerker-info {
+    padding: 10px; /* was 15 */
+    flex-grow: 1; /* Laat info deel groeien */
+    display: flex;
+    flex-direction: column;
+}
+.medewerker-info h3 { margin: 0 0 5px 0; color: var(--accent-green); font-size: 1.2em; }
+.medewerker-info p { margin: 0 0 10px 0; color: var(--light-brown); font-size: 1em; flex-grow: 1; }
+.medewerker-actions { margin-top: auto; font-size: 0.9em; }
+.medewerker-actions a { color: var(--link-color); margin-right: 10px; }
+.medewerker-actions a:hover { color: var(--link-hover); }
+
+/* --- Pagination --- */
+.pagination { text-align: center; margin: 30px 0; padding: 10px 0; }
+.pagination a, .pagination span { padding: 8px 15px; margin: 0 3px; border: 1px solid var(--border-color); border-radius: 4px; display: inline-block; text-decoration: none; }
+.pagination a { background-color: var(--secondary-green); color: var(--text-color); }
+.pagination a:hover { background-color: var(--accent-green); color: var(--primary-green); text-decoration: none; }
+.pagination span.page-info { background-color: rgba(0,0,0,0.3); color: var(--accent-green); font-weight: bold; border-color: rgba(0,0,0,0.3); }
+.pagination span.disabled { color: rgba(245, 245, 245, 0.4); border-color: rgba(245, 245, 245, 0.1); background-color: transparent; cursor: default; }
+
+/* --- Footer --- */
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: rgba(245, 245, 245, 0.7);
+    font-size: 0.9em;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .main-nav { padding: 0 15px; }
+    .logo { font-size: 1em; } /* Smaller logo */
+    .header-controls { gap: 10px; } /* Less gap */
+    .search-form input[type="search"] { min-width: 100px; padding: 6px 10px; height: 34px; } /* Smaller search */
+    .search-form button { padding: 6px 10px; font-size: 0.8em; height: 34px; }
+
+    .plant-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
+    .medewerker-list { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+
+    .form-grid { grid-template-columns: 1fr; gap: 15px 0; } /* Single column forms */
+    .form-group.full-width, .form-group.image-upload, .form-actions { grid-column: 1 / -1; }
+    .form-actions { justify-content: flex-end; } /* Align buttons right */
+    .form-actions p { flex-basis: 100%; order: -1; } /* Required text first line */
+
+    /* Adjust flash message position slightly */
+     .flash-messages { margin-top: 0; padding: 0 15px; }
+}
+
+@media (max-width: 480px) {
+     .logo { display: none; } /* Hide logo text on very small screens */
+     .main-nav { padding: 0 10px; }
+     .search-form { flex-grow: 1; } /* Allow search to take more space */
+     .header-controls { flex-grow: 1; justify-content: flex-end; } /* Push controls right */
+     .plant-grid { grid-template-columns: 1fr; } /* Single column grid */
+     .medewerker-list { grid-template-columns: 1fr; }
+     .form-actions { justify-content: center; } /* Center buttons on small screens */
+     .form-actions button, .form-actions a { width: 48%; margin: 5px 1%; } /* Stack buttons */
+     .form-actions p { text-align: center; }
+}
