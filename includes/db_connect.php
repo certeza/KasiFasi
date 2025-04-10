@@ -1,15 +1,15 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
+// error_reporting(E_ALL);
+// ini_set('display_errors', '1');
 
 define('APP_TITLE', "PlantEcho - The Voice of Suriname's Rainforest");
 
 // --- Database Configuration ---
 // IMPORTANT: Use environment variables or a config file outside the web root in production!
-define('DB_HOST', 'database-5017560682.webspace-host.com');  
-define('DB_NAME', 'dbs14065100');     // Replace with your database name
-define('DB_USER', 'dbu3259683');      // Replace with your DB username
-define('DB_PASS', 'Apen00tzPE!');     // Replace with your DB password
+define('DB_HOST', 'host');  
+define('DB_NAME', 'db name');     // Replace with your database name
+define('DB_USER', 'db user');      // Replace with your DB username
+define('DB_PASS', 'db pass');     // Replace with your DB password
 define('DB_CHARSET', 'utf8mb4');
 
 // --- PDO Connection ---
